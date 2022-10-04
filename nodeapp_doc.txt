@@ -1,0 +1,41 @@
+1) Create a file with the name node-js-example.js and copy the following content to it.
+
+----------------------------------
+
+// include http module in the file
+var http = require('http');
+ 
+// create a server listening on 8087
+http.createServer(function (req, res) {
+    // write the response and send it to the client
+    res.writeHead(200, {'Content-Type': 'text/html'}); 
+    res.write('Node.js says hello!');
+    res.end();
+}).listen(9051);
+
+----------------------------------
+
+2) Use following command to run NodeJS app
+------------------------------------------
+node node-js-example.js
+------------------------------------------
+
+3) Sample build steps for Pipeline
+---------------------------------------
+cd /mount/ssd/haider-data/nodejssample
+ls
+nohup node node-js-example.js &
+---------------------------------------
+
+4) To stop NodeJS app, use following command
+--------------------------------------------
+fuser <<target_port>>/tcp -k
+fuser 9051/tcp -k
+--------------------------------------------
+
+Docker Commands
+---------------
+docker build -t nodeapp:latest .
+
+docker run -t -d -p 9051:9051 --name nodeapp nodeapp:latest
+---------------
